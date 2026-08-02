@@ -65,3 +65,118 @@
 #include <string>
 using namespace std;
 
+#include <iostream>
+#include <iomanip>
+
+const int MAX_SIZE = 10;
+
+void readMatrix(int matrix[MAX_SIZE][MAX_SIZE], int rows, int cols, const std::string& name = "Matrix") {
+    std::cout << "\n--- Entering elements for " << name << " (" << rows << "x" << cols << ") ---\n";
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            std::cout << "Enter element [" << i << "][" << j << "]: ";
+            std::cin >> matrix[i][j];
+        }
+    }
+}
+
+void printMatrix(const int matrix[MAX_SIZE][MAX_SIZE], int rows, int cols) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            std::cout << std::setw(6) << matrix[i][j];
+        }
+        std::cout << "\n";
+    }
+}
+
+
+void transposeMatrix(const int src[MAX_SIZE][MAX_SIZE], int dest[MAX_SIZE][MAX_SIZE], int rows, int cols) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            dest[j][i] = src[i][j];
+        }
+    }
+}
+
+
+void addMatrices(const int A[MAX_SIZE][MAX_SIZE], const int B[MAX_SIZE][MAX_SIZE], 
+                 int result[MAX_SIZE][MAX_SIZE], int rows, int cols) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            result[i][j] = A[i][j] + B[i][j];
+        }
+    }
+}
+
+void multiplyMatrices(const int A[MAX_SIZE][MAX_SIZE], const int B[MAX_SIZE][MAX_SIZE], 
+                      int result[MAX_SIZE][MAX_SIZE], int rowsA, int colsA, int colsB) {
+    for (int i = 0; i < rowsA; ++i) {
+        for (int j = 0; j < colsB; ++j) {
+            result[i][j] = 0; // Initialize cell accumulator
+            for (int k = 0; k < colsA; ++k) {
+                result[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+}
+
+int main() {
+
+    std::cout << "========================================\n";
+    std::cout << "PART A: Matrix Transposition\n";
+    std::cout << "========================================\n";
+    int rowsA, colsA;
+    std::cout << "Enter number of rows: ";
+    std::cin >> rowsA;
+    std::cout << "Enter number of columns: ";
+    std::cin >> colsA;
+
+    int matrixA[MAX_SIZE][MAX_SIZE];
+    readMatrix(matrixA, rowsA, colsA, "Matrix A");
+
+    int transposeA[MAX_SIZE][MAX_SIZE];
+    transposeMatrix(matrixA, transposeA, rowsA, colsA);
+
+    std::cout << "\nOriginal Matrix:\n";
+    printMatrix(matrixA, rowsA, colsA);
+
+    std::cout << "\nTransposed Matrix:\n";
+    printMatrix(transposeA, colsA, rowsA);
+
+    std::cout << "\n========================================\n";
+    std::cout << "PART B: Matrix Addition\n";
+    std::cout << "========================================\n";
+    std::cout << "Enter matrix B with matching dimensions (" << rowsA << "x" << colsA << "):\n";
+    
+    int matrixB[MAX_SIZE][MAX_SIZE];
+    readMatrix(matrixB, rowsA, colsA, "Matrix B");
+
+    int sumMatrix[MAX_SIZE][MAX_SIZE];
+    addMatrices(matrixA, matrixB, sumMatrix, rowsA, colsA);
+
+    std::cout << "\nMatrix A + Matrix B:\n";
+    printMatrix(sumMatrix, rowsA, colsA);
+
+    // -------------------------------------------------------------------------
+    // PART C DEMO: Multiplication
+    // -------------------------------------------------------------------------
+    std::cout << "\n========================================\n";
+    std::cout << "PART C: Matrix Multiplication\n";
+    std::cout << "========================================\n";
+    int colsC;
+    std::cout << "For A x C, Matrix A is (" << rowsA << "x" << colsA << ").\n";
+    std::cout << "Matrix C must have " << colsA << " rows.\n";
+    std::cout << "Enter number of columns for Matrix C: ";
+    std::cin >> colsC;
+
+    int matrixC[MAX_SIZE][MAX_SIZE];
+    readMatrix(matrixC, colsA, colsC, "Matrix C");
+
+    int productMatrix[MAX_SIZE][MAX_SIZE];
+    multiplyMatrices(matrixA, matrixC, productMatrix, rowsA, colsA, colsC);
+
+    std::cout << "\nMatrix A x Matrix C:\n";
+    printMatrix(productMatrix, rowsA, colsC);
+
+    return 0;
+}

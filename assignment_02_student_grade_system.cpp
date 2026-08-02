@@ -49,7 +49,6 @@ using namespace std;
 #include <iostream>
 using namespace std;
 
-// Function to determine grade
 char getGrade(int score) {
     if (score < 0 || score > 100) {
         return '\0'; // Invalid score
