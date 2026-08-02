@@ -69,6 +69,7 @@
 // - Each feature MUST be implemented in its own function (see scaffold below).
 // - Handle invalid menu choices gracefully (print an error, do not crash).
 //
+// Author: Portia Affusah
 
 //
 // =============================================================================
@@ -80,3 +81,117 @@
 #include <string>
 using namespace std;
 
+
+void displayMenu();
+void addTask(std::vector<std::string>& tasks);
+void viewTasks(const std::vector<std::string>& tasks);
+void deleteTask(std::vector<std::string>& tasks);
+
+int main() {
+    std::vector<std::string> tasks;
+    int choice = 0;
+
+    while (choice != 4) {
+        displayMenu();
+        std::cout << "Enter your choice (1-4): ";
+
+        // Check if user entered a valid integer choice
+        if (!(std::cin >> choice)) {
+            std::cout << "\n[Error] Invalid input. Please enter a number from 1 to 4.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                addTask(tasks);
+                break;
+            case 2:
+                viewTasks(tasks);
+                break;
+            case 3:
+                deleteTask(tasks);
+                break;
+            case 4:
+                std::cout << "\nGoodbye! Have a productive day!\n";
+                break;
+            default:
+                std::cout << "\n[Error] Invalid choice. Please select an option between 1 and 4.\n";
+                break;
+        }
+    }
+
+    return 0;
+}
+
+void displayMenu() {
+    std::cout << "\n============================\n";
+    std::cout << "        TO-DO LIST MENU      \n";
+    std::cout << "============================\n";
+    std::cout << "1. Add task\n";
+    std::cout << "2. View tasks\n";
+    std::cout << "3. Delete task\n";
+    std::cout << "4. Quit\n";
+}
+
+void addTask(std::vector<std::string>& tasks) {
+    // Clear newline residue left in input buffer from previous std::cin
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    std::string taskDescription;
+    std::cout << "\nEnter task: ";
+    std::getline(std::cin, taskDescription);
+
+    if (taskDescription.empty()) {
+        std::cout << "[Error] Task description cannot be empty.\n";
+        return;
+    }
+
+    tasks.push_back(taskDescription);
+    std::cout << "Task added: \"" << taskDescription << "\"\n";
+}
+
+void viewTasks(const std::vector<std::string>& tasks) {
+    std::cout << "\nYour Tasks:\n";
+
+    if (tasks.empty()) {
+        std::cout << "  (No tasks found. Your list is empty!)\n";
+        return;
+    }
+
+    for (size_t i = 0; i < tasks.size(); ++i) {
+        std::cout << "  " << (i + 1) << ". " << tasks[i] << "\n";
+    }
+}
+
+void deleteTask(std::vector<std::string>& tasks) {
+    if (tasks.empty()) {
+        std::cout << "\nYour task list is empty. Nothing to delete!\n";
+        return;
+    }
+
+    viewTasks(tasks);
+
+    int taskNum;
+    std::cout << "\nEnter task number to delete: ";
+
+    if (!(std::cin >> taskNum)) {
+        std::cout << "[Error] Invalid input. Please enter a valid number.\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        return;
+    }
+
+    int index = taskNum - 1;
+
+
+    if (index >= 0 && index < static_cast<int>(tasks.size())) {
+        std::string removedTask = tasks[index];
+        tasks.erase(tasks.begin() + index);
+        std::cout << "Task \"" << removedTask << "\" has been removed.\n";
+    } else {
+        std::cout << "[Error] Invalid task number. Please enter a number between 1 and " 
+                  << tasks.size() << ".\n";
+    }
+}

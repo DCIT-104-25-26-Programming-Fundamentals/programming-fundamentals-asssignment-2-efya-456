@@ -38,6 +38,7 @@
 //   (null character) and let main() print the error message.
 // - Use if / else if / else to determine the grade.
 //
+// Author: Portia Affusah
 
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in

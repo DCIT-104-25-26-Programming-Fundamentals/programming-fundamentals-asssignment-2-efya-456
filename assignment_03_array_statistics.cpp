@@ -33,6 +33,7 @@
 // - N must be a positive integer. If the user enters 0 or a negative number,
 //   print an error message and stop.
 //
+// Author: Portia Affusah
 
 //
 // =============================================================================

@@ -42,6 +42,7 @@
 // - N must be a positive integer. If it is not, print an error message.
 // - Each part must be implemented in its own function (see scaffold below).
 //
+// Author: Portia Affusah
 
 //
 // =============================================================================
@@ -51,3 +52,80 @@
 #include <iostream>
 using namespace std;
 
+#include <iostream>
+
+void printFibonacciTerms(int n) {
+    if (n <= 0) {
+        std::cout << "Error: N must be a positive integer.\n";
+        return;
+    }
+
+    std::cout << "Fibonacci sequence: ";
+
+    long long first = 0, second = 1;
+
+    for (int i = 0; i < n; ++i) {
+        if (i == 0) {
+            std::cout << first;
+        } else if (i == 1) {
+            std::cout << " " << second;
+        } else {
+            long long next = first + second;
+            std::cout << " " << next;
+            first = second;
+            second = next;
+        }
+    }
+    std::cout << "\n";
+}
+
+bool isFibonacci(long long target) {
+    if (target < 0) {
+        return false;
+    }
+
+    long long first = 0, second = 1;
+    if (target == first || target == second) {
+        return true;
+    }
+
+    long long next = first + second;
+    while (next <= target) {
+        if (next == target) {
+            return true;
+        }
+        first = second;
+        second = next;
+        next = first + second;
+    }
+
+    return false;
+}
+
+int main() {
+    std::cout << "========================================\n";
+    std::cout << "PART A: Print First N Terms\n";
+    std::cout << "========================================\n";
+    
+    int n;
+    std::cout << "How many terms? ";
+    std::cin >> n;
+
+    printFibonacciTerms(n);
+
+    std::cout << "\n========================================\n";
+    std::cout << "PART B: Check Fibonacci Number\n";
+    std::cout << "========================================\n";
+
+    long long numToCheck;
+    std::cout << "Enter a number to check: ";
+    std::cin >> numToCheck;
+
+    if (isFibonacci(numToCheck)) {
+        std::cout << numToCheck << " is a Fibonacci number.\n";
+    } else {
+        std::cout << numToCheck << " is NOT a Fibonacci number.\n";
+    }
+
+    return 0;
+}

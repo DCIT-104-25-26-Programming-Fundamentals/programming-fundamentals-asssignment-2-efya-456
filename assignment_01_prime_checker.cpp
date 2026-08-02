@@ -29,6 +29,7 @@
 // - Numbers less than 2 are NOT prime — handle this inside the function.
 // - The main() function must call isPrime() and print the result.
 //
+// Author: Portia Affusah
 
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in

@@ -48,6 +48,7 @@
 // - Each part must be in its own function (see scaffold below).
 // - Complete Part A before attempting Part B.
 //
+// Author: Portia Affusah
 
 //
 // =============================================================================
@@ -57,3 +58,66 @@
 #include <iostream>
 using namespace std;
 
+#include <iostream>
+#include <iomanip>
+
+void printSingleTable(int num) {
+    if (num <= 0) {
+        std::cout << "Error: Please enter a positive integer.\n";
+        return;
+    }
+
+    std::cout << "\nMultiplication Table for " << num << ":\n";
+    for (int i = 1; i <= 12; ++i) {
+        std::cout << std::setw(2) << num << "  x  " 
+                  << std::setw(2) << i << "  =  " 
+                  << std::setw(3) << num * i << "\n";
+    }
+}
+
+void printTablesUpToN(int n) {
+    if (n <= 0) {
+        std::cout << "Error: N must be a positive integer.\n";
+        return;
+    }
+
+    for (int current = 1; current <= n; ++current) {
+        printSingleTable(current);
+        
+        if (current < n) {
+            std::cout << "---------------------------\n";
+        }
+    }
+}
+
+int main() {
+    std::cout << "========================================\n";
+    std::cout << "PART A: Single Multiplication Table\n";
+    std::cout << "========================================\n";
+    
+    int singleNum;
+    std::cout << "Enter a number: ";
+    std::cin >> singleNum;
+
+    if (singleNum <= 0) {
+        std::cout << "Error: Invalid input. Number must be positive.\n";
+    } else {
+        printSingleTable(singleNum);
+    }
+
+    std::cout << "\n========================================\n";
+    std::cout << "PART B: Multiplication Tables from 1 to N\n";
+    std::cout << "========================================\n";
+
+    int maxN;
+    std::cout << "Enter N: ";
+    std::cin >> maxN;
+
+    if (maxN <= 0) {
+        std::cout << "Error: Invalid input. N must be a positive integer.\n";
+    } else {
+        printTablesUpToN(maxN);
+    }
+
+    return 0;
+}

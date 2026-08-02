@@ -55,6 +55,7 @@
 // - Display each matrix in a neat, aligned grid using setw().
 // - Tip: Complete Part A first, then Parts B and C.
 //
+// Author: Portia Affusah
 
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
